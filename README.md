@@ -1,5 +1,7 @@
 # Reversi
 
+![Runs on the Ubuntu](screenshot/screenshot01.png)
+
 ## Building
 
 ```console
