@@ -1,4 +1,5 @@
 #include "board.h"
+#include "test.h"
 #include <string.h>
 #include <stdio.h>
 
@@ -395,8 +396,6 @@ static void test_board_next_phase2() {
   }
 }
 
-
-#define RUN(f) do { printf("%s\n", #f); f(); } while(0)
 
 int main() {
   RUN(test_board);
