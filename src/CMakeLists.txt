@@ -15,6 +15,11 @@ target_link_libraries(reversi_gui libui)
 include_directories("../lib")
 set(EXECUTABLE_OUTPUT_PATH "../")
 
+add_executable(reversi_auto
+  board.c
+  main_auto.c
+)
+
 add_executable(reversi_search
   board.c
   turns.c
