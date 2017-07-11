@@ -24,20 +24,6 @@ static const  int DIRS[DIRS_LEN] = {
     DIR_UP_LEFT
   };
 
-static int phase_is_ok(phase_t phase) {
-  if (phase == PHASE_BLACK) {
-    return 1;
-  } else if (phase == PHASE_WHITE) {
-    return 1;
-  } else {
-    return 0;
-  }
-}
-
-static int index_is_ok(int index) {
-  return ((index >= 0) && (index < BOARD_LEN));
-}
-
 static int cell_is_ok(cell_t cell) {
   switch (cell) {
     case CELL_NONE:
@@ -204,9 +190,9 @@ eb_t board_put(const board_t board, phase_t phase, int index, board_t dst) {
 
   if (dst == NULL) {
     return EB_ILLARGS;
-  } else if (!phase_is_ok(phase)) {
+  } else if (!board_is_valid_phase(phase)) {
     return EB_ILLARGS;
-  } else if (!index_is_ok(index)) {
+  } else if (!board_is_valid_index(index)) {
     return EB_ILLARGS;
   }
 
@@ -283,4 +269,18 @@ phase_t board_next_phase(const board_t board, phase_t current) {
   } else {
     return PHASE_NONE;
   }
+}
+
+int board_is_valid_phase(phase_t phase) {
+  if (phase == PHASE_BLACK) {
+    return 1;
+  } else if (phase == PHASE_WHITE) {
+    return 1;
+  } else {
+    return 0;
+  }
+}
+
+int board_is_valid_index(int index) {
+  return ((index >= 0) && (index < BOARD_LEN));
 }

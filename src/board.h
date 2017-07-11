@@ -79,4 +79,16 @@ int board_count_cell(const board_t board, cell_t cell);
  */
 phase_t board_next_phase(const board_t board, phase_t current);
 
+/**
+ * Validate a phase
+ * @return This returns 1 if phase is valid. 0 if phase is not OK.
+ */
+int board_is_valid_phase(phase_t phase);
+
+/**
+ * Validate a index
+ * @return This returns 1 if index is valid. 0 if index is out of boad_t range.
+ */
+int board_is_valid_index(int index);
+
 #endif // BOARD_H
