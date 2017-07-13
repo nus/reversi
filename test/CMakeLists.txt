@@ -8,5 +8,12 @@ add_executable(tests
   test.c
 )
 
+add_executable(benchmarks
+  ../src/board.c
+  ../src/turns.c
+  ../src/search.c
+  benchmark.c
+)
+
 include_directories("../src")
 set(EXECUTABLE_OUTPUT_PATH "../")
