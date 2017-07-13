@@ -10,12 +10,13 @@ typedef struct search_t {
 } search_t;
 
 
-static void reversi_search(const board_t board, phase_t phase, turns_t *turns, search_on_settled_t on_settled) {
+static es_t reversi_search(const board_t board, phase_t phase, turns_t *turns, search_on_settled_t on_settled) {
   board_t hint, next;
   phase_t next_phase;
   int i;
   eb_t eb;
   et_t et;
+  es_t es;
 
   board_hint(board, phase, &hint);
   for(i = 0; i < BOARD_LEN; i++) {
@@ -34,16 +35,27 @@ static void reversi_search(const board_t board, phase_t phase, turns_t *turns, s
         turns_delete(dup);
         dup = NULL;
       } else if ((next_phase = board_next_phase(next, phase)) == PHASE_NONE) {
-        on_settled(next, dup);
+        es = on_settled(next, dup);
         turns_delete(dup);
         dup = NULL;
+
+        if (es == ES_ABORT) {
+          goto end;
+        }
       } else {
-        reversi_search(next, next_phase, dup, on_settled);
+        es = reversi_search(next, next_phase, dup, on_settled);
         turns_delete(dup);
         dup = NULL;
+
+        if (es == ES_ABORT) {
+          goto end;
+        }
       }
     }
   }
+
+end:
+  return es;
 }
 
 /* public */
