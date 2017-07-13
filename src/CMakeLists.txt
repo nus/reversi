@@ -22,6 +22,7 @@ add_executable(reversi_auto
 
 add_executable(reversi_search
   board.c
+  search.c
   turns.c
   main_search.c
 )
