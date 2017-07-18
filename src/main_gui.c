@@ -32,7 +32,7 @@ static int on_closing(uiWindow *w, void *data) {
 
 static void handler_draw(uiAreaHandler *a, uiArea *area, uiAreaDrawParams *p) {
   const int len = MIN(p->AreaWidth, p->AreaHeight);
-  const int cell_len = len / 8;
+  const int cell_len = len / EDGE;
   uiDrawBrush brush;
   uiDrawPath *border_path, *white_path, *black_path;
   int i;
@@ -49,7 +49,7 @@ static void handler_draw(uiAreaHandler *a, uiArea *area, uiAreaDrawParams *p) {
   // draw border lines
   set_solid_brush(&brush, 0x000000, 1.0);
   border_path = uiDrawNewPath(uiDrawFillModeWinding);
-  for (i = 0; i < 9; i++) {
+  for (i = 0; i < EDGE + 1; i++) {
     uiDrawPathNewFigure(border_path, cell_len * i, 0);
     uiDrawPathLineTo(border_path, cell_len * i, len);
     uiDrawPathCloseFigure(border_path);
@@ -103,7 +103,7 @@ static void handler_draw(uiAreaHandler *a, uiArea *area, uiAreaDrawParams *p) {
 static void handler_mouse_event(uiAreaHandler *a, uiArea *area, uiAreaMouseEvent *e) {
   if (e->Up) {
     const int len = MIN(e->AreaWidth, e->AreaHeight);
-    const int cell_len = len / 8;
+    const int cell_len = len / EDGE;
     int x = (int) e->X;
     int y = (int) e->Y;
     int index = 0;
